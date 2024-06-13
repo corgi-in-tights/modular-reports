@@ -1,0 +1,5 @@
+Daily Report - {{ date }}
+
+{{ component.quote }}
+
+{{ component.weather_forecast }}

@@ -1,0 +1,10 @@
+weather
+{{ location }}
+
+TODAY:
+11AM - {{ eleven_am_today }}
+3PM - {{ three_pm_today }}
+
+TOMORROW:
+11AM - {{ eleven_am_tomorrow }}
+3PM - {{ three_pm_tomorrow }}

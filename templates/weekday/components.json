@@ -1,0 +1,12 @@
+[
+    {
+        "id": "weather_forecast",
+        "component": "weather",
+        "kwargs": {}
+    },
+    {
+        "id": "quote",
+        "component": "quote",
+        "kwargs": {}
+    }
+]
