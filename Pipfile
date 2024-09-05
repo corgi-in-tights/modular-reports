@@ -5,8 +5,8 @@ name = "pypi"
 
 [packages]
 jinja2 = "*"
-mjml = "*"
 requests = "*"
+mjml = "*"
 
 [dev-packages]
 
