@@ -1,0 +1,43 @@
+<mj-section padding="0" background-color="#73c9eb">
+
+  <mj-column>
+    <mj-table>
+      <tr>
+        <td>
+          <p style='font-weight:200;font-size:20px;font-family:monospace;color:#163363;' align="left" font-weight="200" align="justify" font-size="20px" color="#163363" font-family="monospace">weather</p>
+        </td>
+        <td><img src="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png" height="48px" width="48px" style='padding:0;margin-right:-10px;float:right;background-color:#fff;border-radius:10px;' /></td>
+      </tr>
+    </mj-table>
+
+  </mj-column>
+</mj-section>
+
+
+<mj-section background-color="#f3f3f3">
+  <mj-column>
+    <mj-text line-height="5px" font-weight="200" align="center" font-size="14px" color="#000" font-family="helvetica">In {{ location }}</mj-text>
+
+    <mj-table>
+      <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+        <th style="padding: 0 0 0 0;">Time</th>
+        <th style="padding: 0 0 0 50px;">Today</th>
+        <th style="padding: 0 0 0 0;">Tomorrow</th>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 0 0;">11AM</td>
+        <td style="padding: 0 0 0 50px;">{{ eleven_am_today }}</td>
+        <td style="padding: 0 0 0 0;">{{ eleven_am_tomorrow }}</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 0 0;">3PM</td>
+        <td style="padding: 0 0 0 50px;">{{ three_pm_today }}</td>
+        <td style="padding: 0 0 0 0;">{{ three_pm_tomorrow }}</td>
+      </tr>
+    </mj-table>
+
+
+    <mj-button css-class="hover" href='{{ weather_url }}' height="10px" align="left" background-color="#73c9eb" border-radius="5px" font-family="monospace" font-size="12px" color="#163363">view more</mj-button>
+  </mj-column>
+
+</mj-section>

@@ -1,0 +1,5 @@
+LOCO Report - {{ date }}
+
+{{ component('base:quote', 'default', hello='world') }}
+{{ component('base:quote', hello='world') }}
+{{ component('base:quote', component_provider='loco', hello='world') }}
