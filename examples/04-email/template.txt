@@ -1,0 +1,5 @@
+Daily Report - {{ date }}
+
+This is the daily report
+
+{{ component('base:quote', category='funny') }}

@@ -9,10 +9,7 @@ from .components.quote import QuoteComponent
 from .components.weather import WeatherComponent
 
 # remaining
-# TODO proper logging (easy)
-# TODO email example 
-# TODO clean up weather module -. -
-# TODO add more modules lol
+# TODO clean up weather module
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s',datefmt='%Y-%m-%d %I:%M:%S', filename='modular-reports.log', encoding='utf-8', level=logging.INFO)
