@@ -1,16 +1,38 @@
 from jinja2 import Environment, BaseLoader
+import logging
 
 from .providers import Provider
 from .base_component import BaseComponent
-from .constants import default_component_classes, default_component_provider_key, jinja2_component_function
+from .constants import default_component_provider_key, jinja2_component_function
 
-environment = Environment(loader=BaseLoader())
+from .components.quote import QuoteComponent
+from .components.weather import WeatherComponent
+
+# remaining
+# TODO proper logging (easy)
+# TODO email example 
+# TODO clean up weather module -. -
+# TODO add more modules lol
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s',datefmt='%Y-%m-%d %I:%M:%S', filename='modular-reports.log', encoding='utf-8', level=logging.INFO)
+logging.getLogger().addHandler(logging.StreamHandler())
+
+jinja2_environment = Environment(loader=BaseLoader())
+
+default_component_classes = [
+    QuoteComponent,
+    WeatherComponent
+]
+
 
 class ComponentService:
-    def __init__(self, template_kwargs={}, global_component_kwargs={}, additional_component_classes=[], developer_mode=False) -> None:
-        self.environment = environment 
+    def __init__(self, template_kwargs={}, global_component_kwargs={}, additional_component_classes=[], default_component_classes=default_component_classes, jinja2_environment=jinja2_environment, developer_mode=False, logger=logger) -> None:
+        self.environment = jinja2_environment 
+        self.logger = logger
+        
         self.developer_mode = developer_mode
-        if (self.developer_mode): print('Developer mode has been enabled.')
+        if (self.developer_mode): self.logger.info('Developer mode has been enabled.')
 
         # passed to template
         self.template_kwargs = template_kwargs
@@ -34,7 +56,8 @@ class ComponentService:
                     environment=self.environment,
                     cached_data=self.cached_data,
                     persistent_data=self.persistent_data,
-                    developer_mode=self.developer_mode
+                    developer_mode=self.developer_mode,
+                    logger=self.logger
                 )
             for component_class in all_component_classes
         ]
@@ -64,7 +87,7 @@ class ComponentService:
         temporary_component_provider = self.temporary_component_provider if (component_provider == None) else component_provider
 
         provider = component.get_provider_by_key(temporary_component_provider)
-        component_content = component.render(provider, **self.global_component_kwargs, **component_kwargs)
+        component_content = component.render(provider, self._render_component, **self.global_component_kwargs, **component_kwargs)
         return component_content
 
 

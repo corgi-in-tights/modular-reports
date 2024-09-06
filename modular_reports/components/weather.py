@@ -4,6 +4,7 @@ from modular_reports.base_component import BaseComponent
 from modular_reports.providers import FileProvider
 from modular_reports.utils import get_component_template_path
 
+
 class WeatherComponent(BaseComponent):
     component_id = 'base:weather'
 
@@ -13,7 +14,7 @@ class WeatherComponent(BaseComponent):
         self.set_default_provider(FileProvider(get_component_template_path('weather/template.txt')))
         self.set_provider('mjml', FileProvider(get_component_template_path('weather/template.mjml')))
 
-    def get_component_data(self, lat, lon, **kwargs):
+    def get_component_data(self, **kwargs):
         if (self.developer_mode):
             return {
                 'location': 'ontario',
@@ -22,6 +23,9 @@ class WeatherComponent(BaseComponent):
                 'eleven_am_tomorrow': '15 celsius',
                 'three_pm_tomorrow': '20 celsius'
             }
+        
+        lat = 1
+        lon = 2
     
         api_key = os.getenv('WEATHER_API_KEY')
         print (api_key)

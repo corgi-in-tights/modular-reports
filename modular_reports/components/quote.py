@@ -4,6 +4,7 @@ from modular_reports.base_component import BaseComponent
 from modular_reports.providers import FileProvider
 from modular_reports.utils import get_component_template_path
 
+
 class QuoteComponent(BaseComponent):
     component_id = 'base:quote'
     
@@ -13,20 +14,14 @@ class QuoteComponent(BaseComponent):
         self.set_default_provider(FileProvider(get_component_template_path('quote/template.txt')))
         self.set_provider('mjml', FileProvider(get_component_template_path('quote/template.mjml')))
 
-    def get_component_data(self, hello, **kwargs):
+    def get_component_data(self, category, **kwargs):
         if (self.developer_mode): 
             return {
                 'quote': 'Developer mode has been turned on.',
                 'author': 'modular-reports'
             }
         
-        # declare template variables 
-        quote_category = random.choice([
-            'funny',
-            'inspire'
-        ])
-
-        url = f'https://quotes.rest/qod?category={quote_category}'
+        url = f"https://quotes.rest/qod?category={category.lower().replace(' ', '')}"
         api_key = os.getenv('QUOTE_API_KEY')
         headers = {'content-type': 'application/json', 'X-TheySaidSo-Api-Secret': format(api_key)}
 

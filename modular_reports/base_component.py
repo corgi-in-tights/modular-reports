@@ -1,5 +1,9 @@
+import logging
+
 from jinja2 import Environment
 from .providers import Provider
+
+from .constants import jinja2_component_function
 
 
 class BaseComponent:
@@ -7,12 +11,16 @@ class BaseComponent:
                  environment: Environment, 
                  cached_data: dict = {}, 
                  persistent_data: dict = {}, 
+                 logger = logging.getLogger(__name__),
                  developer_mode: bool = False,
                 ) -> None:
         self.providers = {}
         self.environment = environment
+        self.logger = logger
+
         self.cached_data = cached_data
         self.persistent_data = persistent_data
+
         self.developer_mode = developer_mode
     
 
@@ -24,7 +32,7 @@ class BaseComponent:
         return {}
 
 
-    def render(self, provider: Provider, **component_kwargs) -> str:
+    def render(self, provider: Provider, child_renderer, **component_kwargs) -> str:
         """Uses the Provider and component data to convert the respective component template into a string."""
 
         # get provider contents (process may vary based on source)
@@ -32,9 +40,11 @@ class BaseComponent:
 
         # convert it into a template, fill in the variables using Jinja2 & return
         component_template = self.environment.from_string(provider_contents)
-        return component_template.render(
-            self.get_component_data(**component_kwargs)
-        )
+
+        return component_template.render({
+            **self.get_component_data(**component_kwargs),
+            jinja2_component_function: child_renderer
+        })
     
 
     def get_provider_by_key(self, provider_id: str):
